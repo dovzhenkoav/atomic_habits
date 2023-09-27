@@ -2,6 +2,8 @@ from django.db import models
 from users.models import User
 
 
+NULLABLE = {'null': True, 'blank':True}
+
 
 class Habit(models.Model):
     PERIODICITY_CHOICES = [
@@ -18,11 +20,11 @@ class Habit(models.Model):
     place = models.CharField(max_length=128, verbose_name='место')
     time = models.TimeField(verbose_name='время выполнения')
     action = models.CharField(max_length=128, verbose_name='действие')
-    is_nice = models.BooleanField(verbose_name='признак приятной привычки')
-    related_habit = models.IntegerField(verbose_name='ид связанной привычки')
+    is_nice = models.BooleanField(verbose_name='признак приятной привычки', **NULLABLE)
+    related_habit = models.IntegerField(verbose_name='ид связанной привычки', **NULLABLE)
     periodicity = models.CharField(max_length=1, choices=PERIODICITY_CHOICES, verbose_name='перидочность')
-    reward = models.CharField(max_length=128, verbose_name='награда')
-    duration = models.CharField(max_length=128, verbose_name='продолжительность')
+    reward = models.CharField(max_length=128, verbose_name='награда', **NULLABLE)
+    duration = models.IntegerField(verbose_name='продолжительность в секундах')
     is_public = models.BooleanField(verbose_name='признак публичной привычки')
 
     def __str__(self):
