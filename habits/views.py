@@ -13,12 +13,20 @@ class PersonalHabitsListAPIView(generics.ListAPIView):
     queryset = Habit.objects.all()
     pagination_class = HabitPaginator
 
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Habit.objects.all()
+        return Habit.objects.filter(created_by=self.request.user)
+
 
 class PublicHabitsListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = HabitSerializer
-    queryset = Habit.objects.all()
+    # queryset = Habit.objects.all()
     pagination_class = HabitPaginator
+
+    def get_queryset(self):
+        return Habit.objects.filter(is_public=True)
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
