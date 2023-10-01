@@ -3,11 +3,12 @@ from celery import shared_task
 import json
 from datetime import datetime, timedelta
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
+from django.conf import settings
 
 
 @shared_task
 def send_tg_message(chat_id: int, message: str):
-    endpoint = f'https://api.telegram.org/bot6626612134:AAFL-62F1bmyT9DW5CAwvxTilgTxwkAKQC8/sendMessage'
+    endpoint = f'https://api.telegram.org/bot{settings.BOT_API_TOKEN}/sendMessage'
 
     params = {
         'chat_id': chat_id,
