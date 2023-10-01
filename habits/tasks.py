@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
 from django.conf import settings
 
+from random import randint
+
 
 @shared_task
 def send_tg_message(chat_id: int, message: str):
@@ -24,7 +26,7 @@ def set_schedule(chat_id: int, message: str, periodicity_days: int, *args, **kwa
     )
     PeriodicTask.objects.create(
         interval=schedule,
-        name='Send tg message',
+        name=f'Send tg message_{randint(1, 1000000)}',
         task='habits.tasks.send_tg_message',
         args=(chat_id, message),
         kwargs=json.dumps({

@@ -1,6 +1,7 @@
 venv
 .env
 .idea
+.coverage
 __pycache__
 **/migrations/*
 **/media/*

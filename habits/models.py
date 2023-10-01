@@ -29,7 +29,7 @@ class Habit(models.Model):
     notification_tgid = models.BigIntegerField(**NULLABLE, verbose_name='ид телеграма для уведомлений')
 
     def __str__(self):
-        return f'{self.place} {self.time} {self.action} {self.created_by}'
+        return f'{self.pk} {self.place} {self.time} {self.action} {self.created_by}'
 
     class Meta:
         verbose_name = 'привычка'
