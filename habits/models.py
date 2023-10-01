@@ -26,6 +26,7 @@ class Habit(models.Model):
     reward = models.CharField(max_length=128, verbose_name='награда', **NULLABLE)
     duration = models.IntegerField(verbose_name='продолжительность в секундах')
     is_public = models.BooleanField(verbose_name='признак публичной привычки')
+    notification_tgid = models.BigIntegerField(**NULLABLE, verbose_name='ид телеграма для уведомлений')
 
     def __str__(self):
         return f'{self.place} {self.time} {self.action} {self.created_by}'
