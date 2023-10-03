@@ -9,10 +9,10 @@ class RelatedOrRewardValidator:
         self.reward = reward
 
     def __call__(self, value):
-        related = title = dict(value).get(self.related)
-        reward = title = dict(value).get(self.reward)
+        related = dict(value).get(self.related)
+        reward = dict(value).get(self.reward)
         if related and reward:
-            raise ValidationError(f'Не может быть у привычки И связанная привычка И награда.')
+            raise ValidationError('Не может быть у привычки И связанная привычка И награда.')
 
 
 class DurationValidator:
@@ -37,7 +37,7 @@ class RelatedIsNiceHabitValidator:
         if related:
             rel_habit = Habit.objects.get(pk=related)
             if not rel_habit.is_nice:
-                ValidationError(f'В связанные привычки могут попадать только привычки с признаком приятной привычки.')
+                ValidationError('В связанные привычки могут попадать только привычки с признаком приятной привычки.')
 
 
 class NoRewardOrRelatedOnNiceHabitValidator:
@@ -52,7 +52,7 @@ class NoRewardOrRelatedOnNiceHabitValidator:
         reward = dict(value).get(self.reward)
         if is_nice:
             if related or reward:
-                raise ValidationError(f'У приятной привычки не может быть связанной привычки или вознаграждения.')
+                raise ValidationError('У приятной привычки не может быть связанной привычки или вознаграждения.')
 
 class FrequencyValidator:
     def __init__(self, periodicity):
@@ -61,6 +61,6 @@ class FrequencyValidator:
     def __call__(self, value):
         periodicity = dict(value).get(self.periodicity)
         if int(periodicity) > 7:
-            raise ValidationError(f'Нельзя выполнять привычку реже, чем раз в семь дней.')
+            raise ValidationError('Нельзя выполнять привычку реже, чем раз в семь дней.')
 
 

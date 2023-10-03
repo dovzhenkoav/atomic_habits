@@ -16,7 +16,7 @@ def send_tg_message(chat_id: int, message: str):
         'chat_id': chat_id,
         'text': message,
     }
-    response = requests.post(endpoint, params=params)
+    requests.post(endpoint, params=params)
 
 
 def set_schedule(chat_id: int, message: str, periodicity_days: int, *args, **kwargs):
